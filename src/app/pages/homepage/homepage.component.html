@@ -2,7 +2,41 @@
   <div class="card">
     <div class="card-header">IT 08-1</div>
     <div class="card-body">
-     
+      <div class="content">
+        <div class="profile-row">
+          <div class="avatar">{{ initial }}</div>
+          <div class="profile-info">
+            <p style="font-weight: bold;">{{ postData.username }}</p>
+            <small style="color: grey;">{{ postData.date | date:'d MMM yyyy HH:mm' }}</small>
+          </div>
+        </div>
+        <div *ngIf="postData.image" class="post-image-container">
+          <img [src]="postData.image" alt="Post Image" class="post-image">
+        </div>
+      </div>
+      <div class="comment-section">
+        <!-- Input row -->
+        <div class="comment">
+          <div class="avatar">B</div>
+          <div class="profile-info">
+            <form #commentForm="ngForm" (submit)="addComment()">
+              <p style="font-weight: bold;" >{{ newComment.username }}</p>
+              <input class="comment-input" type="text" placeholder="Comment" [(ngModel)]="newComment.text" name="comment"
+                #commentInput="ngModel" (keydown.enter)="addComment()" />
+            </form>
+          </div>
+        </div>
+        <!-- Comment list -->
+        <div *ngIf="commentsData.length > 0">
+          <div *ngFor="let comment of commentsData" class="comment">
+            <div class="avatar">{{ comment?.username?.charAt(0)?.toUpperCase() }}</div>
+            <div class="profile-info">
+              <p style="font-weight: bold; margin: 0;">{{ comment?.username }}</p>
+              <p style="margin: 0;">{{ comment?.text }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
