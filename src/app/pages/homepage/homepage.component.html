@@ -1,17 +1,23 @@
-<div class="page-wrapper">
+﻿<div class="page-wrapper">
+
+  <!-- Loading overlay -->
+  <div *ngIf="isLoading()" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+
   <div class="card">
-    <div class="card-header">IT 08-1</div>
+     <div class="card-header">IT 08-1</div>
     <div class="card-body">
       <div class="content">
         <div class="profile-row">
-          <div class="avatar">{{ initial }}</div>
+          <div class="avatar">{{ initial() }}</div>
           <div class="profile-info">
-            <p style="font-weight: bold;">{{ postData.username }}</p>
-            <small style="color: grey;">{{ postData.createdAt | date:'d MMM yyyy HH:mm' }}</small>
+            <p style="font-weight: bold;">{{ postData()?.Username }}</p>
+            <small style="color: grey;">{{ postData()?.CreatedAt | date:'d MMM yyyy HH:mm' }}</small>
           </div>
         </div>
-        <div *ngIf="postData.imageUrl" class="post-image-container">
-          <img [src]="postData.imageUrl" alt="Post Image" class="post-image">
+        <div *ngIf="postData()?.ImageUrl" class="post-image-container">
+          <img [src]="postData()?.ImageUrl" alt="Post Image" class="post-image">
         </div>
       </div>
       <div class="comment-section">
@@ -20,19 +26,19 @@
           <div class="avatar">B</div>
           <div class="profile-info">
             <form #commentForm="ngForm" (submit)="addComment()">
-              <p style="font-weight: bold;" >{{ newComment.username }}</p>
-              <input class="comment-input" type="text" placeholder="Comment" [(ngModel)]="newComment.text" name="comment"
-                #commentInput="ngModel" (keydown.enter)="addComment()" />
+              <p style="font-weight: bold;" >{{ newComment.Username }}</p>
+              <input class="comment-input" type="text" placeholder="Comment" [(ngModel)]="newComment.TextComment" name="comment"
+                #commentInput="ngModel" />
             </form>
           </div>
         </div>
         <!-- Comment list -->
-        <div *ngIf="commentsData.length > 0">
-          <div *ngFor="let comment of commentsData" class="comment">
-            <div class="avatar">{{ comment?.username?.charAt(0)?.toUpperCase() }}</div>
+        <div *ngIf="commentsData().length > 0">
+          <div *ngFor="let comment of commentsData()" class="comment">
+            <div class="avatar">{{ comment?.Username?.charAt(0)?.toUpperCase() }}</div>
             <div class="profile-info">
-              <p style="font-weight: bold; margin: 0;">{{ comment?.username }}</p>
-              <p style="margin: 0;">{{ comment?.text }}</p>
+              <p style="font-weight: bold; margin: 0;">{{ comment?.Username }}</p>
+              <p style="margin: 0;">{{ comment?.TextComment }}</p>
             </div>
           </div>
         </div>

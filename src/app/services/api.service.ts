@@ -7,6 +7,7 @@ export interface ContentResponse {
   Username: string;
   ImageUrl: string;
   CreatedAt: string;
+  Comments: { Username: string; TextComment: string }[];
 }
 
 @Injectable({
@@ -18,7 +19,10 @@ export class ApiService {
   private http = inject(HttpClient);
 
   getContentData() {
-      return this.http.get<ContentResponse[]>(`${this.apiUrl}/GetContentData`)
-    
+      return this.http.get<ContentResponse[]>(`${this.apiUrl}/GetContentData`) 
+  }
+
+  addDataComment(data: { Username: string; TextComment: string, PostId: number }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/AddComment`, data);
   }
 }
