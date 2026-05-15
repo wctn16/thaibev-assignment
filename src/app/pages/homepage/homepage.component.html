@@ -7,11 +7,11 @@
           <div class="avatar">{{ initial }}</div>
           <div class="profile-info">
             <p style="font-weight: bold;">{{ postData.username }}</p>
-            <small style="color: grey;">{{ postData.date | date:'d MMM yyyy HH:mm' }}</small>
+            <small style="color: grey;">{{ postData.createdAt | date:'d MMM yyyy HH:mm' }}</small>
           </div>
         </div>
-        <div *ngIf="postData.image" class="post-image-container">
-          <img [src]="postData.image" alt="Post Image" class="post-image">
+        <div *ngIf="postData.imageUrl" class="post-image-container">
+          <img [src]="postData.imageUrl" alt="Post Image" class="post-image">
         </div>
       </div>
       <div class="comment-section">
